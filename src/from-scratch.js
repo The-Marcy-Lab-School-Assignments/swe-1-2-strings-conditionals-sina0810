@@ -31,24 +31,28 @@ if (breed === 'snake'){
 };
 
 const funTypes = (jsType) => {
-if (jsType === 'string') {
-  return "That's just some text."
-} else if (typeof jsType === 'number'){
-  return "That's a good number."
-} else if (typeof jsType === 'boolean'){
-  return "To bool, or not to bool?"
-} else if (typeof jsType === 'undefined' ){
-  return "Nothing, but I didn't set that."
-} else if (jsType === null){
-  return "Nothing, and I did set that."
-} else if (typeof jsType === 'object'){
-  return "Anybody got the key?"
-} else if (Array.isArray(jsType)){
-  "I order you to be indexed."
-} else if (Number.isNaN(jsType)){
-  return "Well, now you're just showing off." 
-}
+  if (typeof jsType === 'string') {
+    return "That's just some text.";
+  } else if (typeof jsType === 'number') {
+    // NaN is a "number" type too, so we check for it later
+    if (Number.isNaN(jsType)) {
+      return "Well, now you're just showing off.";
+    }
+    return "That's a good number.";
+  } else if (typeof jsType === 'boolean') {
+    return "To bool, or not to bool?";
+  } else if (typeof jsType === 'undefined') {
+    return "Nothing, but I didn't set that.";
+  } else if (jsType === null) {
+    return "Nothing, and I did set that.";
+  } else if (Array.isArray(jsType)) {
+    return "I order you to be indexed.";
+  } else if (typeof jsType === 'object') {
+    return "Anybody got the key?";
+  }
 };
+
+
 
 const rounder = (float, roundingSetting ) => {
 if (roundingSetting === "up" ){
@@ -69,18 +73,32 @@ return `${capitalized1} ${capitalized2}`
 }
 
 const extractDomain = (email) => {
-  let symbol = '@'
-  let email.indexOf('@')
-  let email.slice()
+  let domain = ''
+  const at = email.indexOf('@')
+  domain = email.slice((at + 1) , email.length)
+  return domain
 };
 
 const startsWithVowel = (str) => {
-
+let lowerCase = str.toLowerCase()
+if ("aeiou".includes(lowerCase[0])){
+  return true
+} else {
+  return false
 }
 
-const rotate = () => {
-
 };
+const rotate = (str, num) => {
+  num = num % str.length;
+
+  const lastPart = str.slice(str.length - num); 
+  const firstPart = str.slice(0, str.length - num); 
+  const rotated = lastPart + firstPart;
+  return rotated;
+};
+
+console.log(rotate("hello", 2)); // "lohel"
+console.log(rotate("coding", 3)); // "ingcod"
 
 module.exports = {
   measureRain,
